@@ -1,0 +1,43 @@
+# Dependencies
+node_modules/
+
+# Next.js build output and deployment artifacts
+.next/
+out/
+.vercel/
+.turbo/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment files (keep example files in repo)
+.env
+.env.*
+!.env.example
+
+# Build and coverage artifacts
+coverage/
+dist/
+build/
+*.tsbuildinfo
+
+# Python local tooling artifacts
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+.idea/
+
+# Local prompt-pack data
+.github/prompts/

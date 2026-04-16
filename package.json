@@ -1,0 +1,28 @@
+{
+  "name": "nexusgroup",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "build": "next build",
+    "dev": "next dev -H 0.0.0.0 -p 3000",
+    "start": "next start -H 0.0.0.0 -p 3000"
+  },
+  "dependencies": {
+    "gsap": "^3.15.0",
+    "lucide-react": "0.487.0",
+    "motion": "^12.23.24",
+    "next": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "tw-animate-css": "1.3.8"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "latest",
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "tailwindcss": "4.1.12",
+    "typescript": "latest"
+  }
+}
