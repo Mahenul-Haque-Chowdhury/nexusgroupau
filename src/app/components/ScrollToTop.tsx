@@ -4,6 +4,14 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { ArrowUp } from "lucide-react";
 
+type LenisLike = {
+  scrollTo: (target: number, options?: { duration?: number }) => void;
+};
+
+type WindowWithLenis = Window & {
+  __lenis?: LenisLike;
+};
+
 export function ScrollToTop() {
   const [isVisible, setIsVisible] = useState(false);
 
@@ -21,6 +29,13 @@ export function ScrollToTop() {
   }, []);
 
   const scrollToTop = () => {
+    const lenis = (window as WindowWithLenis).__lenis;
+
+    if (lenis) {
+      lenis.scrollTo(0, { duration: 1.05 });
+      return;
+    }
+
     window.scrollTo({
       top: 0,
       behavior: "smooth"

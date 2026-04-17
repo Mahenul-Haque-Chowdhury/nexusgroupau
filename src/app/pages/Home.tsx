@@ -167,7 +167,7 @@ export function Home() {
 
   return (
     <div className="relative">
-      <div className="pointer-events-none fixed inset-0 z-0">
+      <div className="pointer-events-none absolute inset-0 z-0 md:fixed">
         <Image
           src="/nexushero.webp"
           alt="Cinematic background"

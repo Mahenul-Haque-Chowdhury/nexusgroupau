@@ -7,6 +7,7 @@ import { ScrollToTop } from "./components/ScrollToTop";
 import { ScrollToTopOnMount } from "./components/ScrollToTopOnMount";
 import { CinematicAmbient } from "./components/CinematicAmbient";
 import { Preloader } from "./components/Preloader";
+import { SmoothScroll } from "./components/SmoothScroll";
 
 export const viewport: Viewport = {
   themeColor: "#070a12",
@@ -49,6 +50,7 @@ export default function RootLayout({
     <html lang="en" data-scroll-behavior="smooth" suppressHydrationWarning>
       <body suppressHydrationWarning>
         <div className="min-h-screen bg-background text-foreground overflow-x-hidden flex flex-col">
+          <SmoothScroll />
           <Preloader />
           <CinematicAmbient />
           <ScrollToTopOnMount />

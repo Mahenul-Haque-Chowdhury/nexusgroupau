@@ -11,12 +11,12 @@ import {
 
 export function CinematicAmbient() {
   const shouldReduceMotion = useReducedMotion();
-  const [isMobileViewport, setIsMobileViewport] = useState(false);
+  const [isMobileOrTouchViewport, setIsMobileOrTouchViewport] = useState(false);
   const { scrollYProgress } = useScroll();
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia("(max-width: 767px)");
-    const syncViewport = () => setIsMobileViewport(mediaQuery.matches);
+    const mediaQuery = window.matchMedia("(max-width: 1024px), (hover: none) and (pointer: coarse)");
+    const syncViewport = () => setIsMobileOrTouchViewport(mediaQuery.matches);
 
     syncViewport();
     if (typeof mediaQuery.addEventListener === "function") {
@@ -39,12 +39,8 @@ export function CinematicAmbient() {
   const spotlightTransform = useMotionTemplate`translate3d(${spotlightX}px, ${spotlightY}px, 0)`;
   const auraTransform = useMotionTemplate`translate3d(${auraX}px, ${auraY}px, 0)`;
 
-  if (shouldReduceMotion || isMobileViewport) {
-    return (
-      <div className="pointer-events-none fixed inset-0 z-[2]">
-        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/35" />
-      </div>
-    );
+  if (shouldReduceMotion || isMobileOrTouchViewport) {
+    return null;
   }
 
   return (

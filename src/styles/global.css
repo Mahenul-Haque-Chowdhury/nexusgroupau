@@ -13,6 +13,19 @@ body {
     linear-gradient(180deg, #070a12 0%, #080f1d 45%, #070a12 100%);
 }
 
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
 /* Hide default cursor on desktop when custom cursor is active */
 @media (min-width: 1024px) {
   * {
