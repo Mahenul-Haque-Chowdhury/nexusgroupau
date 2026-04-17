@@ -62,9 +62,9 @@ const services = [
   {
     id: "revenue",
     number: "04",
-    title: "STR Management Consultation",
+    title: "STRA Management Consultation",
     tagline: "Advisory & Optimization",
-    description: "Strategic management consultation and optimization frameworks for short-term rental portfolios.",
+    description: "Strategic management consultation and optimization frameworks for STRA (Short term rental accommodation) portfolios.",
     features: [
       "Dynamic pricing algorithms",
       "Market analysis & forecasting",
@@ -72,7 +72,7 @@ const services = [
       "Automated management"
     ],
     icon: TrendingUp,
-    imageSrc: "/service-revenue.jpg",
+    imageSrc: "/service-revenue2.jpg",
     gradient: "from-emerald-400 to-lime-500",
     color: "teal"
   }

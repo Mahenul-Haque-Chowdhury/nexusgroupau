@@ -25,7 +25,7 @@ export function Navbar() {
   const primaryLinks = [
     { path: "/", label: "Home" },
     { path: "/portfolio", label: "Portfolio" },
-    { path: "/about", label: "About" },
+    { path: "/about", label: "About us" },
     { path: "/resources", label: "Resources" },
   ];
 
@@ -53,7 +53,7 @@ export function Navbar() {
     },
     {
       path: "/services/revenue",
-      label: "STR Management Consultation",
+      label: "STRA Management Consultation",
       description: "",
       branches: ["Property Renting Consultation"],
       icon: TrendingUp,

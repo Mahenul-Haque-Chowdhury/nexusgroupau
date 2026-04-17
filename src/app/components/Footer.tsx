@@ -88,7 +88,7 @@ export function Footer() {
               <li><Link href="/services/communication" className="text-white/50 hover:text-white transition-colors">Anonymous Communication Gateway</Link></li>
               <li><Link href="/services/content" className="text-white/50 hover:text-white transition-colors">Video & Motion Content Studio</Link></li>
               <li><Link href="/services/software" className="text-white/50 hover:text-white transition-colors">Software & Business Systems</Link></li>
-              <li><Link href="/services/revenue" className="text-white/50 hover:text-white transition-colors">STR Management Consultation</Link></li>
+              <li><Link href="/services/revenue" className="text-white/50 hover:text-white transition-colors">STRA Management Consultation</Link></li>
             </ul>
           </div>
 

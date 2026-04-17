@@ -29,6 +29,39 @@ const values = [
   }
 ];
 
+const executiveTeamMembers = [
+  {
+    id: 1,
+    name: "To Be Announced",
+    designation: "Group Chief Executive Officer",
+    portfolioHref: "/portfolio",
+  },
+  {
+    id: 2,
+    name: "To Be Announced",
+    designation: "Chief Operating Officer",
+    portfolioHref: "/portfolio",
+  },
+  {
+    id: 3,
+    name: "To Be Announced",
+    designation: "Chief Technology Officer",
+    portfolioHref: "/portfolio",
+  },
+  {
+    id: 4,
+    name: "To Be Announced",
+    designation: "Chief Strategy Officer",
+    portfolioHref: "/portfolio",
+  },
+  {
+    id: 5,
+    name: "To Be Announced",
+    designation: "Chief Growth Officer",
+    portfolioHref: "/portfolio",
+  },
+];
+
 export function About() {
   return (
     <div className="relative pt-24">
@@ -82,7 +115,7 @@ export function About() {
                     <p className="mt-2 text-sm uppercase tracking-[0.08em] text-white/60">Founded</p>
                   </div>
                   {[
-                    "Communication, content, software, and STR expertise under one group.",
+                    "Communication, content, software, and STRA (Short term rental accommodation) expertise under one group.",
                     "Strategy-first delivery model with optional hands-on execution support.",
                     "Continuous optimization focused on long-term operational performance.",
                   ].map((point) => (
@@ -96,6 +129,55 @@ export function About() {
                 </div>
               </div>
             </motion.div>
+          </div>
+        </div>
+      </SectionContainer>
+
+      <SectionContainer fullHeight={false}>
+        <div className="relative pb-12 md:pb-16">
+          <div className="max-w-[1320px] mx-auto px-5 sm:px-8 lg:px-16">
+            <motion.div
+              initial={{ opacity: 0, y: 28 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
+              className="text-center mb-10 md:mb-12"
+            >
+              <h2 className="text-3xl md:text-5xl font-bold mb-4">Our Executive Team Members</h2>
+              <p className="text-base md:text-lg text-white/62 max-w-3xl mx-auto">
+                Leadership profiles are being finalized. Names will be updated soon.
+              </p>
+            </motion.div>
+
+            <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-5">
+              {executiveTeamMembers.map((member, index) => (
+                <motion.article
+                  key={member.id}
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.55, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
+                  className="cinematic-panel rounded-2xl p-4"
+                >
+                  <div className="mb-4 overflow-hidden rounded-xl border border-white/12 bg-[linear-gradient(145deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))]">
+                    <div className="aspect-[4/5] w-full grid place-items-center text-[11px] uppercase tracking-[0.16em] text-white/45">
+                      Image Box
+                    </div>
+                  </div>
+
+                  <p className="text-[10px] uppercase tracking-[0.16em] text-white/45">Name</p>
+                  <h3 className="mt-1 text-lg font-semibold text-white/92">{member.name}</h3>
+                  <p className="mt-2 text-sm text-white/62">{member.designation}</p>
+
+                  <Link
+                    href={member.portfolioHref}
+                    className="mt-5 inline-flex w-full items-center justify-center rounded-xl border border-white/18 px-3 py-2 text-[11px] uppercase tracking-[0.12em] text-white/82 transition-colors hover:border-white/35 hover:bg-white/8"
+                  >
+                    Visit Personal Portfolio
+                  </Link>
+                </motion.article>
+              ))}
+            </div>
           </div>
         </div>
       </SectionContainer>

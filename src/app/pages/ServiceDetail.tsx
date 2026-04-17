@@ -34,7 +34,7 @@ const serviceData = {
     tagline: "",
     icon: Shield,
     imageSrc: "/service-comm.png",
-    gradient: "from-blue-500 to-cyan-500",
+    gradient: "from-sky-300 to-cyan-400",
     overview: "Scan2Call is a privacy-first lost-and-found service where owners tag belongings with QR labels and get anonymous finder communication when items are recovered.",
     branches: [
       "Scan2Call Platform",
@@ -160,7 +160,7 @@ const serviceData = {
     tagline: "",
     icon: Code,
     imageSrc: "/service-software.png",
-    gradient: "from-cyan-500 to-teal-500",
+    gradient: "from-blue-500 to-cyan-500",
     overview: "A complete Web & Software solutions suite covering digital products, infrastructure, consulting, and enterprise business systems.",
     branches: [
       "Web & Digital Services",
@@ -238,14 +238,14 @@ const serviceData = {
     }
   },
   revenue: {
-    title: "STR Management Consultation",
+    title: "Short-Term Rental Accommodation Management Consultation",
     tagline: "",
     icon: TrendingUp,
-    imageSrc: "/service-revenue.jpg",
+    imageSrc: "/service-revenue2.jpg",
     gradient: "from-emerald-400 to-lime-500",
     overview: "",
     branches: [
-      "STR Launch & Setup",
+      "STRA Launch & Setup",
       "Airbnb Listing Optimization",
       "Revenue & Occupancy Strategy",
       "On-Demand Done-For-You Delivery"
@@ -282,9 +282,9 @@ const serviceData = {
           "Avoid over-renovating, under-pricing, hiring the wrong manager, or creating conflict between long-term and short-term guest models."
       },
       {
-        title: "For Homeowners: Is Your Home STR-Ready?",
+        title: "For Homeowners: Is Your Home STRA-Ready?",
         description:
-          "We assess your space, entry flow, noise exposure, and local STRA council rules to confirm whether your property is suitable to launch."
+          "We assess your space, entry flow, noise exposure, and local STRA (Short term rental accommodation) council rules to confirm whether your property is suitable to launch."
       },
       {
         title: "Setup Without Overwhelm",
@@ -368,7 +368,7 @@ const strConsultationContent = {
     "You know the opportunity is there - short-term accommodation demand is strong, and both travellers and business guests are booking every night. But without hands-on experience, the risks feel overwhelming. Licensing confusion, pricing mistakes, terrible first reviews, or even losing money on a property you thought would be a goldmine. We remove the guesswork.",
   introParagraphTwo:
     "Whether you're an investor eyeing a boutique motel or a homeowner with a spare bedroom, we give you a clear, step-by-step launch plan tailored to your specific property, budget, and goals.",
-  headingTwo: "For Hotel & Motel Investors (No Experience? No Problem.)",
+  headingTwo: "No Experiences For Hotel & Motel Investors? We can Help",
   investorPoints: [
     "Feasibility first: We analyse your target suburb, competitor occupancy rates, and average daily rates before you sign a lease or purchase.",
     "Licensing and red tape made simple: We map out every council permit, fire safety requirement, and insurance obligation so you don't get fined or shut down.",
@@ -378,7 +378,7 @@ const strConsultationContent = {
   ],
   headingThree: "For Homeowners Turning Your House into an Airbnb",
   homeownerPoints: [
-    "Is your home suitable? We assess your space, entry points, noise levels, and local council rules (STRA).",
+    "Is your home suitable? We assess your space, entry points, noise levels, and local council rules for STRA (Short term rental accommodation).",
     "Setup without overwhelm: From smart locks and noise monitors to professional photography and listing descriptions that convert.",
     "Pricing that works: Avoid the two biggest mistakes - setting rates too high (zero bookings) or too low (losses and bad guests).",
     "House rules that protect you: We write clear, enforceable rules that reduce parties, pet damage, and neighbour complaints.",
@@ -401,6 +401,8 @@ export function ServiceDetail({ serviceId }: ServiceDetailProps) {
   const isRevenueService = serviceId === "revenue";
   const isCleanLayoutService = isSoftwareService || isCommunicationService || isContentService || isRevenueService;
   const capabilityIcons = capabilityIconsByService[serviceId as keyof typeof capabilityIconsByService] ?? [service.icon];
+  const heroTintOpacityClass = isContentService ? "opacity-[0.12]" : "opacity-20";
+  const ctaGlowOpacityClass = isContentService ? "opacity-[0.03]" : "opacity-5";
 
   const heroCtaLabel = isSoftwareService
     ? "Request Quotation"
@@ -413,7 +415,7 @@ export function ServiceDetail({ serviceId }: ServiceDetailProps) {
       : "Request Consultation";
 
   return (
-    <div className="relative pt-24">
+    <div className="relative">
       <div className="pointer-events-none fixed inset-x-0 top-0 h-[100svh] min-h-[100lvh] w-full z-0 md:inset-0 md:h-auto md:min-h-0">
         <Image
           src={service.imageSrc}
@@ -423,8 +425,14 @@ export function ServiceDetail({ serviceId }: ServiceDetailProps) {
           sizes="100vw"
           className="object-cover object-top md:object-center"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-black/70 to-black/85" />
-        <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-20 mix-blend-screen`} />
+        {isRevenueService ? (
+          <div className="absolute inset-0 bg-gradient-to-b from-black/18 via-black/30 to-black/46" />
+        ) : (
+          <>
+            <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-black/70 to-black/85" />
+            <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} ${heroTintOpacityClass} mix-blend-screen`} />
+          </>
+        )}
       </div>
 
       <div className="relative z-10">
@@ -433,8 +441,8 @@ export function ServiceDetail({ serviceId }: ServiceDetailProps) {
         <div
           className={`relative flex justify-center ${
             isCleanLayoutService
-              ? "items-start pt-24 pb-4 sm:pt-28 md:pt-20 md:pb-4"
-              : "min-h-screen items-center"
+              ? "items-start pt-[calc(env(safe-area-inset-top)+6rem)] pb-4 sm:pt-[calc(env(safe-area-inset-top)+6.5rem)] md:pt-[8.5rem] md:pb-4"
+              : "min-h-screen items-center pt-[calc(env(safe-area-inset-top)+5rem)] md:pt-0"
           }`}
         >
 
@@ -444,20 +452,29 @@ export function ServiceDetail({ serviceId }: ServiceDetailProps) {
             transition={{ duration: 0.8 }}
             className="relative z-10 w-full max-w-[1200px] mx-auto px-5 sm:px-8 lg:px-16"
           >
-            <div className={isCleanLayoutService ? "max-w-5xl mx-auto text-center" : "max-w-4xl"}>
+            <div
+              className={
+                isCleanLayoutService
+                  ? `${isRevenueService ? "max-w-6xl" : "max-w-5xl"} mx-auto text-center`
+                  : "max-w-4xl"
+              }
+            >
                 {service.tagline ? (
                   <div className="cinematic-kicker mb-8">
                     {service.tagline}
                   </div>
                 ) : null}
                 <h1
-                  className={
-                    isCleanLayoutService
-                      ? "mb-8 text-[clamp(1.7rem,5vw,3.9rem)] font-bold leading-[1.08] tracking-tight"
-                      : "text-4xl sm:text-5xl md:text-7xl font-bold mb-8 leading-tight"
-                  }
+                  className="mb-8 text-[clamp(1.45rem,4.1vw,3.15rem)] font-bold leading-[1.06] tracking-tight"
                 >
-                  {service.title}
+                  {isRevenueService ? (
+                    <>
+                      <span className="block sm:whitespace-nowrap">Short-Term Rental Accommodation</span>
+                      <span className="block md:mt-1">Management Consultation</span>
+                    </>
+                  ) : (
+                    service.title
+                  )}
                 </h1>
                 {service.overview ? (
                   <p
@@ -580,36 +597,46 @@ export function ServiceDetail({ serviceId }: ServiceDetailProps) {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
-                className="space-y-8 text-center"
+                className="space-y-7 md:space-y-8"
               >
                 <section className="cinematic-panel rounded-3xl p-6 sm:p-8 md:p-12">
-                  <h2 className="text-3xl font-bold leading-tight text-white md:text-4xl">{strConsultationContent.headingOne}</h2>
-                  <p className="mt-6 max-w-4xl mx-auto text-lg leading-relaxed text-white/65">{strConsultationContent.introParagraphOne}</p>
-                  <p className="mt-4 max-w-4xl mx-auto text-lg leading-relaxed text-white/65">{strConsultationContent.introParagraphTwo}</p>
-                </section>
-
-                <section className="cinematic-panel rounded-3xl p-6 sm:p-8 md:p-12">
-                  <h3 className="text-2xl font-semibold leading-tight text-white md:text-3xl">{strConsultationContent.headingTwo}</h3>
-                  <div className="mt-6 max-w-4xl mx-auto space-y-4 text-lg leading-relaxed text-white/65">
-                    {strConsultationContent.investorPoints.map((point) => (
-                      <p key={point}>{point}</p>
-                    ))}
+                  <div className="mx-auto max-w-4xl text-center">
+                    <h2 className="text-3xl font-bold leading-tight text-white md:text-4xl">{strConsultationContent.headingOne}</h2>
+                    <p className="mt-6 text-lg leading-relaxed text-white/72">{strConsultationContent.introParagraphOne}</p>
+                    <p className="mt-4 text-lg leading-relaxed text-white/72">{strConsultationContent.introParagraphTwo}</p>
                   </div>
                 </section>
 
-                <section className="cinematic-panel rounded-3xl p-6 sm:p-8 md:p-12">
-                  <h3 className="text-2xl font-semibold leading-tight text-white md:text-3xl">{strConsultationContent.headingThree}</h3>
-                  <div className="mt-6 max-w-4xl mx-auto space-y-4 text-lg leading-relaxed text-white/65">
-                    {strConsultationContent.homeownerPoints.map((point) => (
-                      <p key={point}>{point}</p>
-                    ))}
+                <section className="cinematic-panel rounded-3xl p-6 sm:p-8 md:p-10">
+                  <div className="mx-auto max-w-4xl">
+                    <h3 className="text-left text-2xl font-semibold leading-tight text-white md:text-3xl">{strConsultationContent.headingTwo}</h3>
+                    <div className="mt-6 space-y-3">
+                      {strConsultationContent.investorPoints.map((point) => (
+                        <p key={point} className="rounded-2xl bg-white/6 p-4 text-left text-lg leading-relaxed text-white/72 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.08)]">
+                          {point}
+                        </p>
+                      ))}
+                    </div>
                   </div>
                 </section>
 
-                <section className="cinematic-panel min-h-[300px] rounded-3xl p-6 sm:p-8 md:min-h-[360px] md:p-12 flex flex-col items-center justify-center text-center">
+                <section className="cinematic-panel rounded-3xl p-6 sm:p-8 md:p-10">
+                  <div className="mx-auto max-w-4xl">
+                    <h3 className="text-left text-2xl font-semibold leading-tight text-white md:text-3xl">{strConsultationContent.headingThree}</h3>
+                    <div className="mt-6 space-y-3">
+                      {strConsultationContent.homeownerPoints.map((point) => (
+                        <p key={point} className="rounded-2xl bg-white/6 p-4 text-left text-lg leading-relaxed text-white/72 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.08)]">
+                          {point}
+                        </p>
+                      ))}
+                    </div>
+                  </div>
+                </section>
+
+                <section className="cinematic-panel flex min-h-[280px] flex-col items-center justify-center rounded-3xl p-6 text-center sm:p-8 md:min-h-[330px] md:p-12">
                   <h3 className="max-w-3xl text-2xl font-semibold leading-tight text-white md:text-3xl">{strConsultationContent.bottomLineHeading}</h3>
-                  <p className="mt-5 max-w-4xl text-lg leading-relaxed text-white/65">{strConsultationContent.bottomLineParagraph}</p>
-                  <p className="mt-4 max-w-4xl text-lg leading-relaxed text-white/65">
+                  <p className="mt-5 max-w-4xl text-lg leading-relaxed text-white/72">{strConsultationContent.bottomLineParagraph}</p>
+                  <p className="mt-4 max-w-4xl text-lg leading-relaxed text-white/72">
                     Ready to start? Book a free 20-minute Discovery Call or email at{" "}
                     <a href="mailto:enquiry@nexusgroup.ltd" className="text-white underline decoration-white/40 underline-offset-2 transition-colors hover:text-primary">
                       enquiry@nexusgroup.ltd
@@ -741,7 +768,7 @@ export function ServiceDetail({ serviceId }: ServiceDetailProps) {
       {!isRevenueService ? (
         <SectionContainer fullHeight={false}>
           <div className="relative py-20 md:py-32">
-            <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-5 blur-3xl`} />
+            <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} ${ctaGlowOpacityClass} blur-3xl`} />
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}

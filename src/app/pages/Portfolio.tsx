@@ -35,8 +35,8 @@ const caseStudies = [
     tags: ["SaaS", "Healthcare", "Cloud"]
   },
   {
-    title: "STR Portfolio Optimization",
-    category: "STR Management Consultation",
+    title: "STRA Portfolio Optimization",
+    category: "STRA Management Consultation",
     challenge: "Property management company with 200+ units experiencing suboptimal occupancy and pricing.",
     approach: "Implemented AI-powered dynamic pricing and automated operations across entire portfolio.",
     result: "42% revenue increase in year one. 75% reduction in management overhead. Portfolio expanded to 350 units.",
@@ -80,7 +80,7 @@ export function Portfolio() {
               </h1>
               <p className="text-lg md:text-xl text-white/60 leading-relaxed">
                 Selected client work across communication platforms, software systems, content production,
-                and STR optimization programs.
+                and STRA optimization programs.
               </p>
             </div>
           </motion.div>

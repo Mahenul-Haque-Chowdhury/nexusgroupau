@@ -128,10 +128,10 @@ export function Home() {
     },
     {
       number: "04",
-      title: "STR Management Consultation",
-      description: "Strategic short-term rental management consultation and optimization frameworks.",
+      title: "STRA Management Consultation",
+      description: "Strategic STRA (Short term rental accommodation) management consultation and optimization frameworks.",
       icon: TrendingUp,
-      imageSrc: "/service-revenue.jpg",
+      imageSrc: "/service-revenue2.jpg",
       href: "/services/revenue",
       gradient: "bg-gradient-to-br from-emerald-400 to-lime-500",
       tags: ["Dynamic Pricing", "Forecasting", "Portfolio Ops"],

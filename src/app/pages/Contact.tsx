@@ -198,7 +198,7 @@ export function Contact() {
                           <option value="communication" className="bg-[#070a12]">Anonymous Communication Gateway</option>
                           <option value="content" className="bg-[#070a12]">Video & Motion Content Studio</option>
                           <option value="software" className="bg-[#070a12]">Software & Business Systems</option>
-                          <option value="revenue" className="bg-[#070a12]">STR Management Consultation</option>
+                          <option value="revenue" className="bg-[#070a12]">STRA Management Consultation</option>
                           <option value="multiple" className="bg-[#070a12]">Multiple Services</option>
                           <option value="other" className="bg-[#070a12]">Other</option>
                         </select>

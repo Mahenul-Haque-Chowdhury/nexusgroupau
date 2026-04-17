@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Portfolio",
   description:
-    "Explore NEXUS Group case studies and measurable client outcomes across communication, content, software, and STR revenue systems.",
+    "Explore NEXUS Group case studies and measurable client outcomes across communication, content, software, and STRA (Short term rental accommodation) revenue systems.",
 };
 
 export default function PortfolioPage() {
