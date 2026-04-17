@@ -23,9 +23,13 @@ export function SectionContainer({ children, className = "", fullHeight = true }
     const syncViewport = () => setIsMobileViewport(mediaQuery.matches);
 
     syncViewport();
-    mediaQuery.addEventListener("change", syncViewport);
+    if (typeof mediaQuery.addEventListener === "function") {
+      mediaQuery.addEventListener("change", syncViewport);
+      return () => mediaQuery.removeEventListener("change", syncViewport);
+    }
 
-    return () => mediaQuery.removeEventListener("change", syncViewport);
+    mediaQuery.addListener(syncViewport);
+    return () => mediaQuery.removeListener(syncViewport);
   }, []);
 
   const opacity = useTransform(scrollYProgress, [0, 0.16, 0.86, 1], [0.5, 1, 1, 0.82]);

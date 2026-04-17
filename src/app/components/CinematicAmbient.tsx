@@ -19,9 +19,13 @@ export function CinematicAmbient() {
     const syncViewport = () => setIsMobileViewport(mediaQuery.matches);
 
     syncViewport();
-    mediaQuery.addEventListener("change", syncViewport);
+    if (typeof mediaQuery.addEventListener === "function") {
+      mediaQuery.addEventListener("change", syncViewport);
+      return () => mediaQuery.removeEventListener("change", syncViewport);
+    }
 
-    return () => mediaQuery.removeEventListener("change", syncViewport);
+    mediaQuery.addListener(syncViewport);
+    return () => mediaQuery.removeListener(syncViewport);
   }, []);
 
   const spotlightX = useTransform(scrollYProgress, [0, 1], [-120, 180]);
