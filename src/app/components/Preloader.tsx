@@ -27,7 +27,8 @@ const OVERLAY_EXIT_MS = 640;
 export function Preloader() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
+  // Start visible so the overlay is present from the very first paint.
+  const [isVisible, setIsVisible] = useState(true);
   const [hasCheckedStorage, setHasCheckedStorage] = useState(false);
 
   // Read localStorage only on client to avoid hydration mismatch.
@@ -96,9 +97,8 @@ export function Preloader() {
 
   const currentGreeting = useMemo(() => GREETINGS[currentIndex] ?? GREETINGS[0], [currentIndex]);
 
-  // Do not render preloader at all until storage check is done.
-  // Returning visitors get no overlay and no flicker.
-  if (!hasCheckedStorage || !isVisible) {
+  // Once hidden, unmount the overlay.
+  if (!isVisible) {
     return null;
   }
 

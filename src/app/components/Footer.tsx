@@ -120,7 +120,15 @@ export function Footer() {
             © {currentYear} NEXUS Group. All rights reserved.
           </p>
           <p className="text-white/40 text-sm">
-            nexusgroup.ltd
+            Designed by{" "}
+            <a
+              href="https://arnob.life"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white/70 transition-colors hover:text-white"
+            >
+              Arnob
+            </a>
           </p>
         </div>
         </div>
