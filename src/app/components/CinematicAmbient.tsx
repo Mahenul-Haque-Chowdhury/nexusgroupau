@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import {
   motion,
   useMotionTemplate,
@@ -10,7 +11,18 @@ import {
 
 export function CinematicAmbient() {
   const shouldReduceMotion = useReducedMotion();
+  const [isMobileViewport, setIsMobileViewport] = useState(false);
   const { scrollYProgress } = useScroll();
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 767px)");
+    const syncViewport = () => setIsMobileViewport(mediaQuery.matches);
+
+    syncViewport();
+    mediaQuery.addEventListener("change", syncViewport);
+
+    return () => mediaQuery.removeEventListener("change", syncViewport);
+  }, []);
 
   const spotlightX = useTransform(scrollYProgress, [0, 1], [-120, 180]);
   const spotlightY = useTransform(scrollYProgress, [0, 1], [-110, 150]);
@@ -21,7 +33,7 @@ export function CinematicAmbient() {
   const vignetteOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.3, 0.42, 0.38]);
   const scanlineOpacity = useTransform(scrollYProgress, [0, 1], [0.03, 0.08]);
 
-  if (shouldReduceMotion) {
+  if (shouldReduceMotion || isMobileViewport) {
     return (
       <div className="pointer-events-none fixed inset-0 z-[2]">
         <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/35" />
