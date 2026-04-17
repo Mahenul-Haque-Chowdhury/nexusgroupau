@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { Navbar } from "./components/Navbar";
 import { Footer } from "./components/Footer";
-import { CustomCursor } from "./components/CustomCursor";
 import { ScrollToTop } from "./components/ScrollToTop";
 import { ScrollToTopOnMount } from "./components/ScrollToTopOnMount";
 import { CinematicAmbient } from "./components/CinematicAmbient";
@@ -54,7 +53,6 @@ export default function RootLayout({
           <Preloader />
           <CinematicAmbient />
           <ScrollToTopOnMount />
-          <CustomCursor />
           <ScrollToTop />
           <Navbar />
           <main className="flex-1">{children}</main>

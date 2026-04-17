@@ -13,6 +13,38 @@ body {
     linear-gradient(180deg, #070a12 0%, #080f1d 45%, #070a12 100%);
 }
 
+/* Ensure all interactive controls use pointer cursor */
+:where(
+  a[href],
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  input[type="button"]:not(:disabled),
+  input[type="submit"]:not(:disabled),
+  input[type="reset"]:not(:disabled),
+  input[type="checkbox"]:not(:disabled),
+  input[type="radio"]:not(:disabled),
+  input[type="file"]:not(:disabled),
+  input[type="range"]:not(:disabled),
+  input[type="color"]:not(:disabled),
+  input[type="image"]:not(:disabled),
+  select:not(:disabled),
+  summary,
+  label[for],
+  [data-clickable="true"]
+) {
+  cursor: pointer;
+}
+
+:where(
+  button:disabled,
+  input:disabled,
+  select:disabled,
+  textarea:disabled,
+  [aria-disabled="true"]
+) {
+  cursor: not-allowed;
+}
+
 @media (min-width: 1025px) and (hover: hover) and (pointer: fine) {
   html.lenis,
   html.lenis body {
@@ -36,19 +68,6 @@ body {
   body {
     overscroll-behavior-x: auto;
     overscroll-behavior-y: auto;
-  }
-}
-
-/* Hide default cursor on desktop when custom cursor is active */
-@media (min-width: 1024px) {
-  * {
-    cursor: none !important;
-  }
-  
-  /* Keep text cursor for inputs */
-  input,
-  textarea {
-    cursor: text !important;
   }
 }
 
@@ -302,21 +321,6 @@ body::after {
   body::before,
   body::after {
     display: none;
-  }
-  
-  /* Show default cursor when reduced motion is preferred */
-  * {
-    cursor: auto !important;
-  }
-  
-  input,
-  textarea {
-    cursor: text !important;
-  }
-  
-  a,
-  button {
-    cursor: pointer !important;
   }
 
   .narrative-ticker-track {
