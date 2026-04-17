@@ -214,14 +214,16 @@ export function Home() {
             <div aria-hidden className="mb-8 space-y-1">
               <BlurText
                 text="Unified Ecosystem of Digital"
-                delay={120}
+                delay={190}
+                stepDuration={0.62}
                 animateBy="words"
                 direction="top"
                 className="w-full justify-center text-[clamp(2.3rem,10.4vw,3.25rem)] font-bold tracking-tight leading-[1.08] sm:text-[2.9rem] md:text-[3.6rem] lg:text-[4.35rem]"
               />
               <BlurText
                 text="Services for Secure Growth"
-                delay={90}
+                delay={170}
+                stepDuration={0.62}
                 animateBy="words"
                 direction="bottom"
                 className="w-full justify-center text-[clamp(2.3rem,10.4vw,3.25rem)] font-bold tracking-tight leading-[1.08] sm:text-[2.9rem] md:text-[3.6rem] lg:text-[4.35rem]"

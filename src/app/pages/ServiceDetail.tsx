@@ -452,12 +452,8 @@ export function ServiceDetail({ serviceId }: ServiceDetailProps) {
                 ) : null}
                 <h1
                   className={
-                    isSoftwareService
-                      ? "mb-8 text-[clamp(1.8rem,7.2vw,4.1rem)] font-bold leading-tight"
-                      : isCommunicationService
-                        ? "mb-8 whitespace-nowrap text-[clamp(0.92rem,4.35vw,3.35rem)] font-bold leading-[1.1] tracking-tight"
-                      : isCleanLayoutService
-                        ? "mb-8 text-[clamp(1.8rem,5.3vw,4.2rem)] font-bold leading-[1.1]"
+                    isCleanLayoutService
+                      ? "mb-8 text-[clamp(1.7rem,5vw,3.9rem)] font-bold leading-[1.08] tracking-tight"
                       : "text-4xl sm:text-5xl md:text-7xl font-bold mb-8 leading-tight"
                   }
                 >
