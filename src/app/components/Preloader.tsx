@@ -97,8 +97,8 @@ export function Preloader() {
 
   const currentGreeting = useMemo(() => GREETINGS[currentIndex] ?? GREETINGS[0], [currentIndex]);
 
-  // Once hidden, unmount the overlay.
-  if (!isVisible) {
+  // Avoid flashing the first greeting before localStorage check completes.
+  if (!hasCheckedStorage || !isVisible) {
     return null;
   }
 
