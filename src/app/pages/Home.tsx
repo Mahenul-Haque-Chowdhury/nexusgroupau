@@ -298,7 +298,7 @@ export function Home() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 1, delay: 1.2 }}
-              className="mt-8 flex justify-center md:mt-12"
+              className="mt-8 hidden justify-center md:mt-12 md:flex"
             >
               <motion.div
                 animate={{ y: [0, 8, 0] }}
@@ -333,13 +333,13 @@ export function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-              className="narrative-surface relative z-10 -mt-6 mb-8 overflow-hidden rounded-full px-1.5 py-2.5 sm:mb-10 sm:px-2 sm:py-3"
+              className="narrative-surface relative z-10 -mt-2 mb-8 overflow-hidden rounded-2xl px-2 py-3 sm:-mt-4 sm:mb-10 sm:rounded-full sm:px-2 sm:py-3 md:-mt-6"
             >
               <div className="narrative-ticker">
-                <div className="narrative-ticker-track text-[12px] uppercase tracking-[0.18em] text-white/68">
+                <div className="narrative-ticker-track text-[10px] leading-[1.35] uppercase tracking-[0.12em] text-white/68 sm:text-[12px] sm:tracking-[0.18em]">
                   {Array.from({ length: 2 }).map((_, loopIndex) => (
                     tickerItems.map((item, itemIndex) => (
-                      <span key={`${loopIndex}-${itemIndex}`} className="inline-flex items-center gap-3">
+                      <span key={`${loopIndex}-${itemIndex}`} className="inline-flex items-center gap-2.5 whitespace-nowrap sm:gap-3">
                         <span>{item}</span>
                         <span className="h-1 w-1 rounded-full bg-primary/75" />
                       </span>

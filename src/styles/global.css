@@ -161,15 +161,22 @@ body::after {
 }
 
 .narrative-ticker {
+  width: 100%;
   overflow: hidden;
   white-space: nowrap;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 6%, #000 94%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, #000 6%, #000 94%, transparent 100%);
 }
 
 .narrative-ticker-track {
   display: inline-flex;
+  width: max-content;
   min-width: max-content;
+  align-items: center;
   gap: 1.5rem;
+  padding-inline-end: 1.5rem;
   animation: narrative-ticker-scroll 22s linear infinite;
+  will-change: transform;
 }
 
 @keyframes narrative-ticker-scroll {
@@ -220,9 +227,15 @@ body::after {
     filter: blur(44px);
   }
 
+  .narrative-ticker {
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 4%, #000 96%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, #000 4%, #000 96%, transparent 100%);
+  }
+
   .narrative-ticker-track {
-    gap: 1rem;
-    animation-duration: 28s;
+    gap: 0.9rem;
+    padding-inline-end: 0.9rem;
+    animation-duration: 32s;
   }
 }
 
