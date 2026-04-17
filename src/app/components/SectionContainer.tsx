@@ -19,12 +19,11 @@ export function SectionContainer({ children, className = "", fullHeight = true }
 
   const opacity = useTransform(scrollYProgress, [0, 0.16, 0.86, 1], [0.5, 1, 1, 0.82]);
   const y = useTransform(scrollYProgress, [0, 0.22, 0.8, 1], [56, 0, 0, -20]);
-  const scale = useTransform(scrollYProgress, [0, 0.22, 0.82, 1], [0.975, 1, 1, 0.992]);
 
   return (
     <motion.section
       ref={sectionRef}
-      style={shouldReduceMotion ? undefined : { opacity, y, scale }}
+      style={shouldReduceMotion ? undefined : { opacity, y }}
       className={`relative will-change-transform [transform-origin:center_top] ${fullHeight ? "min-h-[100svh] md:min-h-screen" : ""} ${className}`}
     >
       {children}

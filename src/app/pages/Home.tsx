@@ -69,13 +69,10 @@ export function Home() {
   });
 
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.95]);
   const heroY = useTransform(scrollYProgress, [0, 0.5], [0, -120]);
   const gridPatternOpacity = useTransform(scrollYProgress, [0, 0.5], [0.85, 0.28]);
   const blobPrimaryY = useTransform(scrollYProgress, [0, 0.5], [0, -130]);
   const blobSecondaryY = useTransform(scrollYProgress, [0, 0.5], [0, 130]);
-  const blobPrimaryScale = useTransform(scrollYProgress, [0, 0.5], [1, 1.2]);
-  const blobSecondaryScale = useTransform(scrollYProgress, [0, 0.5], [1, 1.15]);
   const tickerDriftY = useTransform(solutionsProgress, [0, 1], [16, -16]);
   const orbPrimaryY = useTransform(solutionsProgress, [0, 1], [26, -26]);
   const orbSecondaryY = useTransform(solutionsProgress, [0, 1], [-22, 22]);
@@ -190,11 +187,11 @@ export function Home() {
           <div className="absolute inset-0">
             <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/[0.02] to-transparent" />
             <motion.div
-              style={{ y: blobPrimaryY, scale: blobPrimaryScale }}
+              style={{ y: blobPrimaryY }}
               className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-600/20 rounded-full blur-3xl animate-pulse"
             />
             <motion.div
-              style={{ y: blobSecondaryY, scale: blobSecondaryScale, animationDelay: "1s" }}
+              style={{ y: blobSecondaryY, animationDelay: "1s" }}
               className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl animate-pulse"
             />
           </div>
@@ -206,7 +203,7 @@ export function Home() {
           />
 
           <motion.div 
-            style={{ opacity, scale, y: heroY }}
+            style={{ opacity, y: heroY }}
             className="relative z-10 max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-16 text-center"
           >
             {/* Main Headline */}
