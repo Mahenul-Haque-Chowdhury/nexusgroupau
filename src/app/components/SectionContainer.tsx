@@ -14,13 +14,7 @@ interface SectionContainerProps {
 export function SectionContainer({ children, className = "", fullHeight = true }: SectionContainerProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const shouldReduceMotion = useReducedMotion();
-  const [isMobileOrTouchViewport, setIsMobileOrTouchViewport] = useState(() => {
-    if (typeof window === "undefined") {
-      return true;
-    }
-
-    return window.matchMedia(MOBILE_TOUCH_QUERY).matches;
-  });
+  const [isMobileOrTouchViewport, setIsMobileOrTouchViewport] = useState(true);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start 0.92", "end 0.08"],

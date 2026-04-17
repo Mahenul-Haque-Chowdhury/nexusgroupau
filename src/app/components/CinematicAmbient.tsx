@@ -13,13 +13,7 @@ const MOBILE_TOUCH_QUERY = "(max-width: 1024px), (hover: none) and (pointer: coa
 
 export function CinematicAmbient() {
   const shouldReduceMotion = useReducedMotion();
-  const [isMobileOrTouchViewport, setIsMobileOrTouchViewport] = useState(() => {
-    if (typeof window === "undefined") {
-      return true;
-    }
-
-    return window.matchMedia(MOBILE_TOUCH_QUERY).matches;
-  });
+  const [isMobileOrTouchViewport, setIsMobileOrTouchViewport] = useState(true);
   const { scrollYProgress } = useScroll();
 
   useEffect(() => {
