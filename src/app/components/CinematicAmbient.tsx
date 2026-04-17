@@ -36,6 +36,8 @@ export function CinematicAmbient() {
   const auraOpacity = useTransform(scrollYProgress, [0, 0.4, 1], [0.04, 0.12, 0.05]);
   const vignetteOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.3, 0.42, 0.38]);
   const scanlineOpacity = useTransform(scrollYProgress, [0, 1], [0.03, 0.08]);
+  const spotlightTransform = useMotionTemplate`translate3d(${spotlightX}px, ${spotlightY}px, 0)`;
+  const auraTransform = useMotionTemplate`translate3d(${auraX}px, ${auraY}px, 0)`;
 
   if (shouldReduceMotion || isMobileViewport) {
     return (
@@ -44,9 +46,6 @@ export function CinematicAmbient() {
       </div>
     );
   }
-
-  const spotlightTransform = useMotionTemplate`translate3d(${spotlightX}px, ${spotlightY}px, 0)`;
-  const auraTransform = useMotionTemplate`translate3d(${auraX}px, ${auraY}px, 0)`;
 
   return (
     <div className="pointer-events-none fixed inset-0 z-[2] overflow-hidden">
