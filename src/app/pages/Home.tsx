@@ -82,10 +82,20 @@ export function Home() {
   const activeHeroCta = HERO_ROTATING_CTAS[activeHeroCtaIndex] ?? HERO_ROTATING_CTAS[0];
 
   const tickerItems = [
-    "Comprehensive Solutions",
-    "Motion-Led Delivery",
-    "Cinematic Interfaces",
-    "Systems + Content + Revenue",
+    "Anonymous Communication Gateway",
+    "Website Development",
+    "E-Commerce Solutions",
+    "Mobile App Development",
+    "SEO & Digital Marketing",
+    "CRM",
+    "HRMS",
+    "Documentary & Story-Driven Video Edits",
+    "Shorts",
+    "Reels & Vertical Repurposing",
+    "Ad Creative & Promo Editing",
+    "Facebook-TikTok-YouTube",
+    "Video & Reels Editing",
+    "Short Term Rental Management Consultation",
   ];
 
   const comprehensiveServices = [
@@ -207,14 +217,14 @@ export function Home() {
                 delay={120}
                 animateBy="words"
                 direction="top"
-                className="w-full justify-center text-[clamp(2.45rem,11vw,3.4rem)] font-bold tracking-tight leading-[1.08] sm:text-5xl md:text-6xl lg:text-7xl"
+                className="w-full justify-center text-[clamp(2.3rem,10.4vw,3.25rem)] font-bold tracking-tight leading-[1.08] sm:text-[2.9rem] md:text-[3.6rem] lg:text-[4.35rem]"
               />
               <BlurText
                 text="Services for Secure Growth"
                 delay={90}
                 animateBy="words"
                 direction="bottom"
-                className="w-full justify-center text-[clamp(2.45rem,11vw,3.4rem)] font-bold tracking-tight leading-[1.08] sm:text-5xl md:text-6xl lg:text-7xl"
+                className="w-full justify-center text-[clamp(2.3rem,10.4vw,3.25rem)] font-bold tracking-tight leading-[1.08] sm:text-[2.9rem] md:text-[3.6rem] lg:text-[4.35rem]"
                 segmentClassName="bg-gradient-to-r from-white via-white/90 to-white/70 bg-clip-text text-transparent"
               />
             </div>
@@ -321,10 +331,10 @@ export function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-              className="narrative-surface relative z-10 mb-8 overflow-hidden rounded-full px-1.5 py-2.5 sm:mb-10 sm:px-2 sm:py-3"
+              className="narrative-surface relative z-10 -mt-6 mb-8 overflow-hidden rounded-full px-1.5 py-2.5 sm:mb-10 sm:px-2 sm:py-3"
             >
               <div className="narrative-ticker">
-                <div className="narrative-ticker-track text-[11px] uppercase tracking-[0.18em] text-white/68">
+                <div className="narrative-ticker-track text-[12px] uppercase tracking-[0.18em] text-white/68">
                   {Array.from({ length: 2 }).map((_, loopIndex) => (
                     tickerItems.map((item, itemIndex) => (
                       <span key={`${loopIndex}-${itemIndex}`} className="inline-flex items-center gap-3">
