@@ -3,6 +3,8 @@
 import { ReactNode, useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 
+const MOBILE_TOUCH_QUERY = "(max-width: 1024px), (hover: none) and (pointer: coarse)";
+
 interface SectionContainerProps {
   children: ReactNode;
   className?: string;
@@ -12,14 +14,20 @@ interface SectionContainerProps {
 export function SectionContainer({ children, className = "", fullHeight = true }: SectionContainerProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const shouldReduceMotion = useReducedMotion();
-  const [isMobileOrTouchViewport, setIsMobileOrTouchViewport] = useState(false);
+  const [isMobileOrTouchViewport, setIsMobileOrTouchViewport] = useState(() => {
+    if (typeof window === "undefined") {
+      return true;
+    }
+
+    return window.matchMedia(MOBILE_TOUCH_QUERY).matches;
+  });
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start 0.92", "end 0.08"],
   });
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia("(max-width: 1024px), (hover: none) and (pointer: coarse)");
+    const mediaQuery = window.matchMedia(MOBILE_TOUCH_QUERY);
     const syncViewport = () => setIsMobileOrTouchViewport(mediaQuery.matches);
 
     syncViewport();

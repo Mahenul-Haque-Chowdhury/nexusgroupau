@@ -9,13 +9,21 @@ import {
   useTransform,
 } from "motion/react";
 
+const MOBILE_TOUCH_QUERY = "(max-width: 1024px), (hover: none) and (pointer: coarse)";
+
 export function CinematicAmbient() {
   const shouldReduceMotion = useReducedMotion();
-  const [isMobileOrTouchViewport, setIsMobileOrTouchViewport] = useState(false);
+  const [isMobileOrTouchViewport, setIsMobileOrTouchViewport] = useState(() => {
+    if (typeof window === "undefined") {
+      return true;
+    }
+
+    return window.matchMedia(MOBILE_TOUCH_QUERY).matches;
+  });
   const { scrollYProgress } = useScroll();
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia("(max-width: 1024px), (hover: none) and (pointer: coarse)");
+    const mediaQuery = window.matchMedia(MOBILE_TOUCH_QUERY);
     const syncViewport = () => setIsMobileOrTouchViewport(mediaQuery.matches);
 
     syncViewport();

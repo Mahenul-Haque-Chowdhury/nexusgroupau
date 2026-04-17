@@ -13,17 +13,30 @@ body {
     linear-gradient(180deg, #070a12 0%, #080f1d 45%, #070a12 100%);
 }
 
-html.lenis,
-html.lenis body {
-  height: auto;
+@media (min-width: 1025px) and (hover: hover) and (pointer: fine) {
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
 }
 
-.lenis.lenis-smooth {
-  scroll-behavior: auto !important;
-}
+@media (max-width: 1024px), (hover: none) and (pointer: coarse) {
+  html {
+    overflow-x: visible;
+  }
 
-.lenis.lenis-stopped {
-  overflow: hidden;
+  body {
+    overscroll-behavior-x: auto;
+    overscroll-behavior-y: auto;
+  }
 }
 
 /* Hide default cursor on desktop when custom cursor is active */
@@ -249,6 +262,26 @@ body::after {
     gap: 0.9rem;
     padding-inline-end: 0.9rem;
     animation-duration: 32s;
+  }
+}
+
+@media (max-width: 1024px), (hover: none) and (pointer: coarse) {
+  body::before,
+  body::after {
+    display: none;
+  }
+
+  .cinematic-panel,
+  .narrative-surface {
+    backdrop-filter: none;
+  }
+
+  .cinematic-panel {
+    background: linear-gradient(160deg, rgba(7, 10, 18, 0.92), rgba(7, 10, 18, 0.84));
+  }
+
+  .narrative-surface {
+    background: linear-gradient(150deg, rgba(8, 16, 31, 0.95), rgba(7, 11, 22, 0.9));
   }
 }
 

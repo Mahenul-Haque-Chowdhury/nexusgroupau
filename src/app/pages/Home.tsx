@@ -167,14 +167,14 @@ export function Home() {
 
   return (
     <div className="relative">
-      <div className="pointer-events-none absolute inset-0 z-0 md:fixed">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-[100svh] w-full z-0 md:fixed md:inset-0 md:h-auto">
         <Image
           src="/nexushero.webp"
           alt="Cinematic background"
           fill
           priority
           sizes="100vw"
-          className="object-cover"
+          className="object-cover object-top md:object-center"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-black/70 to-black/85" />
       </div>
