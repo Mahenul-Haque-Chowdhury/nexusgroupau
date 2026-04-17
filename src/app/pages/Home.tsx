@@ -162,7 +162,7 @@ export function Home() {
     <div className="relative">
       <div className="pointer-events-none fixed inset-0 z-0">
         <Image
-          src="/hero-bg.png"
+          src="/nexushero.webp"
           alt="Cinematic background"
           fill
           priority
@@ -200,17 +200,17 @@ export function Home() {
             className="relative z-10 max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-16 text-center"
           >
             {/* Main Headline */}
-            <h1 className="sr-only">Unified Digital Solutions Ecosystem</h1>
+            <h1 className="sr-only">Unified Ecosystem of Digital Services for Secure Growth</h1>
             <div aria-hidden className="mb-8 space-y-1">
               <BlurText
-                text="Unified Digital"
+                text="Unified Ecosystem of Digital"
                 delay={120}
                 animateBy="words"
                 direction="top"
                 className="w-full justify-center text-[clamp(2.45rem,11vw,3.4rem)] font-bold tracking-tight leading-[1.08] sm:text-5xl md:text-6xl lg:text-7xl"
               />
               <BlurText
-                text="Solutions Ecosystem"
+                text="Services for Secure Growth"
                 delay={90}
                 animateBy="words"
                 direction="bottom"
