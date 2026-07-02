@@ -4,7 +4,7 @@ import { serviceLinks as enterpriseServiceLinks } from "@ztecgroup/content";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "motion/react";
 import {
   Boxes,
   ChevronDown,
@@ -65,6 +65,22 @@ export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const [isGroupOpen, setIsGroupOpen] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const [condensed, setCondensed] = useState(false);
+
+  const { scrollY, scrollYProgress } = useScroll();
+
+  // Hide on scroll down, reveal on scroll up; condense once past the hero edge.
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const previous = scrollY.getPrevious() ?? 0;
+    setCondensed(latest > 48);
+    const anyMenuOpen = isOpen || isServicesOpen || isGroupOpen;
+    if (latest > 160 && latest > previous && !anyMenuOpen) {
+      setHidden(true);
+    } else {
+      setHidden(false);
+    }
+  });
 
   useEffect(() => {
     setIsServicesOpen(false);
@@ -74,14 +90,29 @@ export function Navbar() {
   return (
     <motion.nav
       initial={{ y: -100, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      animate={{ y: hidden ? "-100%" : 0, opacity: 1 }}
+      transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
       className="fixed inset-x-0 top-0 z-50"
     >
-      <div className="relative border-b border-white/10 bg-[rgba(7,12,22,0.82)] backdrop-blur-xl">
-        {/* hairline scan accent */}
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#63d3ff]/70 to-transparent" />
-        <div className="mx-auto flex h-14 max-w-[1480px] items-center gap-3 px-4 sm:h-16 sm:px-6 lg:px-10">
+      <div
+        className={`relative border-b transition-colors duration-500 ${
+          condensed
+            ? "border-white/14 bg-[rgba(6,10,19,0.92)] backdrop-blur-2xl"
+            : "border-white/10 bg-[rgba(7,12,22,0.82)] backdrop-blur-xl"
+        }`}
+      >
+        {/* live scroll progress: replaces the static scan accent */}
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-white/8" />
+        <motion.div
+          aria-hidden
+          style={{ scaleX: scrollYProgress }}
+          className="pointer-events-none absolute inset-x-0 top-0 h-[2px] origin-left bg-gradient-to-r from-[#63d3ff]/30 via-[#63d3ff] to-emerald-300 shadow-[0_0_8px_rgba(99,211,255,0.6)]"
+        />
+        <div
+          className={`mx-auto flex max-w-[1480px] items-center gap-3 px-4 transition-[height] duration-500 sm:px-6 lg:px-10 ${
+            condensed ? "h-12 sm:h-14" : "h-14 sm:h-16"
+          }`}
+        >
           {/* Logo */}
           <Link href="/" className="group flex shrink-0 items-center" aria-label="ZTEC Software home">
             <motion.div whileHover={{ scale: 1.02 }} className="flex h-[2.1rem] items-center gap-0 sm:h-[2.4rem] lg:h-[2.7rem]">
@@ -101,7 +132,9 @@ export function Navbar() {
               href="/"
               className={`group inline-flex items-center gap-1 rounded-md px-3 py-1.5 transition-colors ${pathname === "/" ? "text-[#63d3ff]" : "text-white/60 hover:text-white"}`}
             >
+              {pathname === "/" ? <span className="mr-0.5 text-[#63d3ff]/50">[</span> : null}
               <span className="text-white/25 group-hover:text-[#63d3ff]/70">nav.</span>home
+              {pathname === "/" ? <span className="ml-0.5 text-[#63d3ff]/50">]</span> : null}
             </Link>
 
             <div className="relative" onMouseEnter={() => setIsServicesOpen(true)} onMouseLeave={() => setIsServicesOpen(false)}>
@@ -172,7 +205,9 @@ export function Navbar() {
                 href={link.path}
                 className={`group inline-flex items-center gap-1 rounded-md px-3 py-1.5 transition-colors ${pathname === link.path ? "text-[#63d3ff]" : "text-white/60 hover:text-white"}`}
               >
+                {pathname === link.path ? <span className="mr-0.5 text-[#63d3ff]/50">[</span> : null}
                 <span className="text-white/25 group-hover:text-[#63d3ff]/70">nav.</span>{link.label}
+                {pathname === link.path ? <span className="ml-0.5 text-[#63d3ff]/50">]</span> : null}
               </Link>
             ))}
           </div>
