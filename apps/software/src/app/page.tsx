@@ -20,6 +20,16 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
+  openGraph: {
+    title: "ZTEC Software Lab | Custom Software Development & Automation in Australia",
+    description:
+      "Custom software development, web and mobile apps, business process automation, and systems architecture for Australian enterprise operations.",
+  },
+  twitter: {
+    title: "ZTEC Software Lab | Custom Software Development & Automation in Australia",
+    description:
+      "Custom software development, web and mobile apps, business process automation, and systems architecture for Australian enterprise operations.",
+  },
 };
 
 export default function HomePage() {

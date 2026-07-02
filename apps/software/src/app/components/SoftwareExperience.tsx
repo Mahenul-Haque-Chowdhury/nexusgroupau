@@ -210,6 +210,7 @@ export function SoftwareExperience() {
                 </motion.span>
 
                 <h1 className="mt-3 flex flex-wrap justify-center gap-x-[0.26em] gap-y-1 text-[clamp(2.3rem,5.4vw,4.6rem)] font-bold leading-[0.98] tracking-[-0.045em] text-white lg:justify-start">
+                  <span className="sr-only">ZTEC Software Lab: custom software development and automation in Australia. </span>
                   {HEADLINE.map((word, i) => {
                     const accent = word === "systems" || word === "runs";
                     return (
