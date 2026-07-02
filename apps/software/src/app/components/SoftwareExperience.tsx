@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   motion,
   useReducedMotion,
@@ -80,17 +80,29 @@ export function SoftwareExperience() {
   const shouldReduceMotion = useReducedMotion();
   const heroRef = useRef<HTMLDivElement>(null);
 
+  // Phones get a static hero background: the scroll-linked parallax layers
+  // are the main source of mobile compositing lag.
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    const update = () => setIsMobile(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+  const staticHero = shouldReduceMotion || isMobile;
+
   // Scroll-driven hero parallax: content lifts + fades, background drifts.
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ["start start", "end start"],
   });
-  const heroContentY = useTransform(scrollYProgress, [0, 1], [0, shouldReduceMotion ? 0 : -120]);
-  const heroContentOpacity = useTransform(scrollYProgress, [0, 0.7], [1, shouldReduceMotion ? 1 : 0]);
-  const heroScale = useTransform(scrollYProgress, [0, 1], [1, shouldReduceMotion ? 1 : 1.06]);
-  const gridY = useTransform(scrollYProgress, [0, 1], [0, shouldReduceMotion ? 0 : 80]);
-  const orbCyanY = useTransform(scrollYProgress, [0, 1], [0, shouldReduceMotion ? 0 : -140]);
-  const orbAmberY = useTransform(scrollYProgress, [0, 1], [0, shouldReduceMotion ? 0 : 120]);
+  const heroContentY = useTransform(scrollYProgress, [0, 1], [0, staticHero ? 0 : -120]);
+  const heroContentOpacity = useTransform(scrollYProgress, [0, 0.7], [1, staticHero ? 1 : 0]);
+  const heroScale = useTransform(scrollYProgress, [0, 1], [1, staticHero ? 1 : 1.06]);
+  const gridY = useTransform(scrollYProgress, [0, 1], [0, staticHero ? 0 : 80]);
+  const orbCyanY = useTransform(scrollYProgress, [0, 1], [0, staticHero ? 0 : -140]);
+  const orbAmberY = useTransform(scrollYProgress, [0, 1], [0, staticHero ? 0 : 120]);
 
   const renderLogoOnlyTechRow = (items: typeof engineeringTechStackIcons) => (
     <>
@@ -143,7 +155,7 @@ export function SoftwareExperience() {
           className="object-cover object-top md:object-center"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-black/70 to-black/85" />
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-cyan-500 opacity-20 mix-blend-screen" />
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-cyan-500 opacity-[0.12] md:opacity-20 md:mix-blend-screen" />
       </div>
 
       <div className="relative z-10">
@@ -153,16 +165,17 @@ export function SoftwareExperience() {
             ref={heroRef}
             className="relative flex min-h-[94svh] items-center justify-center overflow-hidden px-5 pt-[calc(env(safe-area-inset-top)+7rem)] pb-16 sm:px-8 md:min-h-screen md:pt-32 lg:px-16"
           >
-            {/* Aurora orbs + animated dot-grid floor */}
+            {/* Aurora orbs (desktop only: giant blurred layers are too heavy
+                for mobile GPUs) + animated dot-grid floor */}
             <motion.div
               aria-hidden
               style={{ y: orbCyanY, scale: heroScale }}
-              className="pointer-events-none absolute -left-[10%] top-[8%] h-[34rem] w-[34rem] rounded-full bg-[radial-gradient(circle,rgba(99,211,255,0.28),transparent_68%)] blur-3xl"
+              className="pointer-events-none absolute -left-[10%] top-[8%] hidden h-[34rem] w-[34rem] rounded-full bg-[radial-gradient(circle,rgba(99,211,255,0.28),transparent_68%)] blur-3xl md:block"
             />
             <motion.div
               aria-hidden
               style={{ y: orbAmberY }}
-              className="pointer-events-none absolute -right-[12%] bottom-[2%] h-[30rem] w-[30rem] rounded-full bg-[radial-gradient(circle,rgba(240,180,79,0.2),transparent_68%)] blur-3xl"
+              className="pointer-events-none absolute -right-[12%] bottom-[2%] hidden h-[30rem] w-[30rem] rounded-full bg-[radial-gradient(circle,rgba(240,180,79,0.2),transparent_68%)] blur-3xl md:block"
             />
             <motion.div
               aria-hidden
@@ -346,7 +359,7 @@ export function SoftwareExperience() {
                   <ScrollVelocity
                     texts={tickerTexts}
                     velocity={24}
-                    numCopies={6}
+                    numCopies={isMobile ? 3 : 6}
                     className="px-3 text-[1.25rem] font-semibold uppercase leading-[1.3] tracking-[0.05em] text-white/90 sm:px-4 sm:text-[1.5rem]"
                     parallaxClassName="py-2"
                     scrollerClassName="items-center gap-7 sm:gap-8"

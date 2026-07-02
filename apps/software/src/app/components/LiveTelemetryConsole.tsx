@@ -77,6 +77,27 @@ export function LiveTelemetryConsole() {
   const logId = useRef(0);
   const lastLogAt = useRef(0);
 
+  // The console sleeps while offscreen or in a hidden tab: no rAF loop, no
+  // timers, no scan animation. Saves battery and scroll performance on mobile.
+  const rootRef = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(true);
+  useEffect(() => {
+    const el = rootRef.current;
+    if (!el) return;
+    let visible = true;
+    const compute = () => setActive(visible && !document.hidden);
+    const io = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      compute();
+    });
+    io.observe(el);
+    document.addEventListener("visibilitychange", compute);
+    return () => {
+      io.disconnect();
+      document.removeEventListener("visibilitychange", compute);
+    };
+  }, []);
+
   const pushLog = (key: string, text: string, accent = false) => {
     if (loggedKeys.current.has(key)) return;
     // Throttle: keep the log calm: at most one line per second
@@ -107,15 +128,16 @@ export function LiveTelemetryConsole() {
     return () => window.removeEventListener("resize", update);
   }, []);
 
-  // Real session uptime
+  // Real session uptime (paused while the console is asleep)
   useEffect(() => {
+    if (!active) return;
     const timer = window.setInterval(() => setUptime((s) => s + 1), 1000);
     return () => window.clearInterval(timer);
-  }, []);
+  }, [active]);
 
   // Real FPS via rAF frame counting (updated twice a second)
   useEffect(() => {
-    if (shouldReduceMotion) return;
+    if (shouldReduceMotion || !active) return;
     let frames = 0;
     let last = performance.now();
     let rafId = 0;
@@ -130,7 +152,7 @@ export function LiveTelemetryConsole() {
     };
     rafId = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(rafId);
-  }, [shouldReduceMotion]);
+  }, [shouldReduceMotion, active]);
 
   // Boot lines, then log the visitor's own behavior as system events
   useEffect(() => {
@@ -176,14 +198,17 @@ export function LiveTelemetryConsole() {
   const fpsHealthy = fpsValue >= 48;
 
   return (
-    <div className="relative mx-auto w-full max-w-[30rem] text-left font-mono text-[0.8rem] leading-[1.95] sm:text-[0.86rem] lg:mr-0 lg:ml-auto lg:translate-x-6 xl:translate-x-10">
+    <div
+      ref={rootRef}
+      className="relative mx-auto w-full max-w-[30rem] text-left font-mono text-[0.8rem] leading-[1.95] sm:text-[0.86rem] lg:mr-0 lg:ml-auto lg:translate-x-6 xl:translate-x-10"
+    >
       {/* holographic ambience: soft glow behind the code, no container */}
       <div
         aria-hidden
         className="pointer-events-none absolute -inset-10 -z-10 bg-[radial-gradient(ellipse_60%_55%_at_45%_40%,rgba(30,110,160,0.22),transparent_70%)] blur-2xl"
       />
       {/* projection scan: a thin light line drifting down the code */}
-      {!shouldReduceMotion && (
+      {!shouldReduceMotion && active && (
         <motion.div
           aria-hidden
           initial={{ top: "-4%" }}
