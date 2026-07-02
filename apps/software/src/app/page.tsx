@@ -5,7 +5,7 @@ import { Faq } from "./components/Faq";
 
 export const metadata: Metadata = {
   title: {
-    absolute: "Custom Software Development & Automation in Australia | ZTEC Software Lab",
+    absolute: "ZTEC Software Lab | Custom Software Development & Automation in Australia",
   },
   description:
     "ZTEC Software Lab delivers custom software development, web and mobile apps, business process automation, and systems architecture for Australian enterprise operations. A ZTEC Group Pty Ltd service.",

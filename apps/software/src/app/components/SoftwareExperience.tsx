@@ -10,19 +10,12 @@ import {
   useTransform,
   type Variants,
 } from "motion/react";
-import {
-  ArrowUpRight,
-  Boxes,
-  Code2,
-  Database,
-  Lightbulb,
-  Smartphone,
-  Workflow,
-  type LucideIcon,
-} from "lucide-react";
 import { SectionContainer } from "./SectionContainer";
+import { CapabilitiesRail } from "./CapabilitiesRail";
+import { LiveTelemetryConsole } from "./LiveTelemetryConsole";
+import { DeliveryPipeline } from "./DeliveryPipeline";
+import { OperationsDiff } from "./OperationsDiff";
 import { Button } from "./Button";
-import { Counter } from "./Counter";
 import ScrollVelocity from "./ScrollVelocity";
 import { engineeringTechStackIcons, marketingTechStack, toolsStack } from "./softwareTechStacks";
 
@@ -32,85 +25,46 @@ const HEADLINE = ["Build", "the", "systems", "your", "business", "actually", "ru
 
 const heroBranches = ["Web & Digital", "Infrastructure", "Enterprise Systems"];
 
-const featuredCapabilities: Array<{
-  code: string;
-  title: string;
-  description: string;
-  icon: LucideIcon;
-  specs: string[];
-}> = [
-  {
-    code: "AUT",
-    title: "Custom Software & Automation",
-    description: "Bespoke tools and workflow automation built around how your business actually runs.",
-    icon: Workflow,
-    specs: ["Workflows", "Integrations", "Internal Tools"],
-  },
-  {
-    code: "WEB",
-    title: "Web & E-Commerce",
-    description: "High-performance sites and scalable stores with secure payments built in.",
-    icon: Code2,
-    specs: ["Next.js", "Storefronts", "Payments"],
-  },
-  {
-    code: "APP",
-    title: "Mobile Apps",
-    description: "Fast native and cross-platform experiences for iOS and Android.",
-    icon: Smartphone,
-    specs: ["iOS", "Android", "Cross-Platform"],
-  },
-  {
-    code: "SYS",
-    title: "Business Systems",
-    description: "ERP, CRM, HRMS, and POS platforms that unify operations.",
-    icon: Boxes,
-    specs: ["ERP", "CRM", "HRMS · POS"],
-  },
-  {
-    code: "DAT",
-    title: "Data & Infrastructure",
-    description: "Secure, optimized backends and scalable data warehousing.",
-    icon: Database,
-    specs: ["Databases", "Cloud", "Pipelines"],
-  },
-  {
-    code: "ADV",
-    title: "Tech Consultancy",
-    description: "Strategic guidance on stacks, transformation, and future-ready planning.",
-    icon: Lightbulb,
-    specs: ["Architecture", "Strategy", "Roadmaps"],
-  },
-];
-
-const alsoDelivers = [
-  "Inventory & Warehouse",
-  "Project Management",
-  "Point of Sale",
-  "SEO & Digital Marketing",
-  "Bug Fixing & Maintenance",
-  "Systems Integration",
-];
-
-const outcomes = [
-  "Enterprise-grade reliability",
-  "Architecture built to scale",
-  "Cleaner operational control",
-  "A real technical edge",
-];
-
-const heroSystemLines = [
-  { label: "Customer platforms", status: "live" },
-  { label: "Automation workflows", status: "live" },
-  { label: "ERP · CRM · HRMS", status: "synced" },
-  { label: "Data & infrastructure", status: "stable" },
-];
-
-const heroStats = [
-  { value: "60%", label: "Less manual work" },
-  { value: "24/7", label: "Reliability" },
-  { value: "∞", label: "Built to scale" },
-];
+/** Terminal-styled hero CTA: notched corners, mono type, scan sweep on hover. */
+function HeroCta({
+  href,
+  children,
+  primary = false,
+  telemetry,
+}: {
+  href: string;
+  children: React.ReactNode;
+  primary?: boolean;
+  telemetry?: string;
+}) {
+  return (
+    <Link
+      href={href}
+      data-telemetry={telemetry}
+      className={`group relative inline-flex min-h-12 w-full items-center justify-center gap-2.5 overflow-hidden px-7 py-3.5 font-mono text-[12px] font-semibold uppercase tracking-[0.18em] transition-all duration-300 active:scale-[0.97] sm:w-auto [clip-path:polygon(0.7rem_0,100%_0,100%_calc(100%-0.7rem),calc(100%-0.7rem)_100%,0_100%,0_0.7rem)] ${
+        primary
+          ? "bg-gradient-to-r from-cyan-400 to-sky-500 text-[#04121d] shadow-[0_0_24px_rgba(99,211,255,0.35)] hover:shadow-[0_0_44px_rgba(99,211,255,0.6)] hover:brightness-110"
+          : "border border-cyan-300/30 bg-cyan-400/[0.04] text-cyan-100/85 hover:border-cyan-300/60 hover:bg-cyan-400/[0.1] hover:text-white hover:shadow-[0_0_28px_rgba(99,211,255,0.2)]"
+      }`}
+    >
+      {/* scan sweep */}
+      <span
+        aria-hidden
+        className={`pointer-events-none absolute inset-y-0 -left-full w-full -skew-x-12 bg-gradient-to-r from-transparent to-transparent transition-[left] duration-500 ease-out group-hover:left-full ${
+          primary ? "via-white/40" : "via-cyan-300/15"
+        }`}
+      />
+      {/* corner ticks that light up on hover */}
+      <span aria-hidden className={`pointer-events-none absolute left-1.5 top-1.5 h-2 w-2 border-l border-t transition-colors duration-300 ${primary ? "border-[#04121d]/25 group-hover:border-[#04121d]/60" : "border-cyan-300/0 group-hover:border-cyan-300/80"}`} />
+      <span aria-hidden className={`pointer-events-none absolute bottom-1.5 right-1.5 h-2 w-2 border-b border-r transition-colors duration-300 ${primary ? "border-[#04121d]/25 group-hover:border-[#04121d]/60" : "border-cyan-300/0 group-hover:border-cyan-300/80"}`} />
+      <span className={primary ? "text-[#04121d]/60" : "text-primary/80"}>$</span>
+      <span className="relative z-[1]">{children}</span>
+      <span aria-hidden className="relative z-[1] inline-block transition-transform duration-300 group-hover:translate-x-1">
+        ▸
+      </span>
+    </Link>
+  );
+}
 
 const wordVariants: Variants = {
   hidden: { opacity: 0, y: "0.5em", filter: "blur(12px)" },
@@ -235,16 +189,27 @@ export function SoftwareExperience() {
                   transition={{ duration: 0.7, ease: EASE }}
                   className="flex justify-center lg:justify-start"
                 >
-                  <span className="cinematic-kicker">
+                  <span className="inline-flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-[0.22em] text-cyan-200/80">
                     <span className="relative flex h-1.5 w-1.5">
                       <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary/70" />
                       <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-primary" />
                     </span>
-                    ZTEC Software Lab
+                    <span className="text-primary/80">$</span> init ztec.software_lab
+                    <span className="text-emerald-300/80">[ok]</span>
                   </span>
                 </motion.div>
 
-                <h1 className="mt-8 flex flex-wrap justify-center gap-x-[0.26em] gap-y-1 text-[clamp(2.3rem,5.4vw,4.6rem)] font-bold leading-[0.98] tracking-[-0.045em] text-white lg:justify-start">
+                <motion.span
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.6, ease: EASE, delay: 0.15 }}
+                  className="mt-7 block select-none font-mono text-[13px] text-white/25"
+                  aria-hidden
+                >
+                  &lt;systems&gt;
+                </motion.span>
+
+                <h1 className="mt-3 flex flex-wrap justify-center gap-x-[0.26em] gap-y-1 text-[clamp(2.3rem,5.4vw,4.6rem)] font-bold leading-[0.98] tracking-[-0.045em] text-white lg:justify-start">
                   {HEADLINE.map((word, i) => {
                     const accent = word === "systems" || word === "runs";
                     return (
@@ -262,11 +227,21 @@ export function SoftwareExperience() {
                   })}
                 </h1>
 
+                <motion.span
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.6, ease: EASE, delay: 0.9 }}
+                  className="mt-3 block select-none font-mono text-[13px] text-white/25"
+                  aria-hidden
+                >
+                  &lt;/systems&gt;
+                </motion.span>
+
                 <motion.p
                   initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.7, ease: EASE, delay: 0.95 }}
-                  className="mx-auto mt-7 max-w-md text-base leading-relaxed text-white/62 sm:text-lg lg:mx-0"
+                  className="mx-auto mt-6 max-w-md text-base leading-relaxed text-white/62 sm:text-lg lg:mx-0"
                 >
                   Software that removes operational drag and gives leadership cleaner control.
                 </motion.p>
@@ -280,9 +255,9 @@ export function SoftwareExperience() {
                   {heroBranches.map((branch) => (
                     <span
                       key={branch}
-                      className="rounded-full border border-white/12 bg-white/[0.04] px-4 py-2 text-[11px] uppercase tracking-[0.16em] text-white/70 backdrop-blur-sm"
+                      className="border border-cyan-300/20 bg-cyan-400/[0.05] px-4 py-2 font-mono text-[10px] uppercase tracking-[0.2em] text-cyan-100/75 [clip-path:polygon(0.55rem_0,100%_0,100%_calc(100%-0.55rem),calc(100%-0.55rem)_100%,0_100%,0_0.55rem)]"
                     >
-                      {branch}
+                      {branch.toLowerCase().replace(/ & /g, ".").replace(/ /g, "_")}
                     </span>
                   ))}
                 </motion.div>
@@ -293,79 +268,43 @@ export function SoftwareExperience() {
                   transition={{ duration: 0.7, ease: EASE, delay: 1.15 }}
                   className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row lg:justify-start"
                 >
-                  <Link href="/quotation">
-                    <Button variant="primary" size="lg">
-                      Request Quotation
-                    </Button>
-                  </Link>
-                  <Link href="/portfolio">
-                    <Button variant="outline" size="lg">
-                      View Delivery Approach
-                    </Button>
-                  </Link>
+                  <HeroCta href="/quotation" primary telemetry="cta.quote">
+                    request_quotation
+                  </HeroCta>
+                  <HeroCta href="/services">explore_services</HeroCta>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.7, ease: EASE, delay: 1.35 }}
+                  className="mt-9 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 font-mono text-[10px] uppercase tracking-[0.18em] text-white/40 lg:justify-start"
+                >
+                  <span className="inline-flex items-center gap-1.5">
+                    <span className="h-1 w-1 rounded-full bg-emerald-400 shadow-[0_0_6px_rgba(52,211,153,0.9)]" />
+                    build: passing
+                  </span>
+                  <span className="text-white/15">|</span>
+                  <span className="inline-flex items-center gap-1.5">
+                    <span className="h-1 w-1 rounded-full bg-cyan-300 shadow-[0_0_6px_rgba(99,211,255,0.9)]" />
+                    deploy: continuous
+                  </span>
+                  <span className="text-white/15">|</span>
+                  <span className="inline-flex items-center gap-1.5">
+                    <span className="h-1 w-1 rounded-full bg-emerald-400 shadow-[0_0_6px_rgba(52,211,153,0.9)]" />
+                    uptime: 24/7
+                  </span>
                 </motion.div>
               </div>
 
-              {/* Right: always-on live system console */}
+              {/* Right: live telemetry console: real metrics, not a mockup */}
               <motion.div
                 initial={{ opacity: 0, x: 40, filter: "blur(10px)" }}
                 animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
                 transition={{ duration: 0.9, ease: EASE, delay: 0.5 }}
                 className="relative mx-auto w-full max-w-md lg:max-w-none"
               >
-                <div className="cinematic-panel narrative-grid-overlay relative overflow-hidden rounded-[1.85rem] p-6 sm:p-7">
-                  <span className="narrative-glint" aria-hidden />
-                  <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
-                  <div className="relative z-[2]">
-                    <div className="flex items-center justify-between border-b border-white/8 pb-4">
-                      <div className="flex items-center gap-2">
-                        <span className="h-2.5 w-2.5 rounded-full bg-rose-400/80" />
-                        <span className="h-2.5 w-2.5 rounded-full bg-amber-400/80" />
-                        <span className="h-2.5 w-2.5 rounded-full bg-emerald-400/80" />
-                      </div>
-                      <span className="text-[10px] uppercase tracking-[0.22em] text-white/45">systems · online</span>
-                    </div>
-
-                    <div className="mt-5 space-y-2.5">
-                      {heroSystemLines.map((line, i) => (
-                        <motion.div
-                          key={line.label}
-                          initial={{ opacity: 0, x: 16 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ duration: 0.5, ease: EASE, delay: 0.8 + i * 0.14 }}
-                          className="flex items-center justify-between rounded-xl border border-white/8 bg-white/[0.03] px-4 py-3"
-                        >
-                          <span className="font-mono text-[0.82rem] text-white/78">{line.label}</span>
-                          <span className="inline-flex items-center gap-1.5 text-[10px] uppercase tracking-[0.14em] text-emerald-300/90">
-                            <motion.span
-                              animate={shouldReduceMotion ? undefined : { opacity: [0.4, 1, 0.4] }}
-                              transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut", delay: i * 0.3 }}
-                              className="h-1.5 w-1.5 rounded-full bg-emerald-400"
-                            />
-                            {line.status}
-                          </span>
-                        </motion.div>
-                      ))}
-                    </div>
-
-                    <div className="mt-5 grid grid-cols-3 gap-3 border-t border-white/8 pt-5">
-                      {heroStats.map((stat, i) => (
-                        <motion.div
-                          key={stat.label}
-                          initial={{ opacity: 0, y: 12 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.5, ease: EASE, delay: 1.3 + i * 0.1 }}
-                          className="text-center"
-                        >
-                          <div className="bg-gradient-to-br from-white to-cyan-200 bg-clip-text text-xl font-bold text-transparent sm:text-2xl">
-                            {stat.value}
-                          </div>
-                          <div className="mt-1.5 text-[9px] uppercase tracking-[0.12em] text-white/45">{stat.label}</div>
-                        </motion.div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
+                <LiveTelemetryConsole />
               </motion.div>
             </motion.div>
 
@@ -417,182 +356,14 @@ export function SoftwareExperience() {
           </div>
         </SectionContainer>
 
-        {/* ───────────────────── Capabilities ───────────────────── */}
-        <SectionContainer fullHeight={false}>
-          <div className="relative py-20 md:py-32">
-            <div className="mx-auto max-w-[1320px] px-5 sm:px-8 lg:px-16">
-              <motion.div
-                initial={{ opacity: 0, y: 28 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.75, ease: EASE }}
-                className="mx-auto max-w-2xl text-center"
-              >
-                <span className="cinematic-kicker">Capabilities</span>
-                <h2 className="mt-7 text-[clamp(1.9rem,4.2vw,3.4rem)] font-bold leading-[1.05] tracking-[-0.03em] text-white">
-                  What we deliver
-                </h2>
-              </motion.div>
+        {/* ──── Capabilities: pinned horizontal rail (GSAP ScrollTrigger) ──── */}
+        <CapabilitiesRail />
 
-              <div className="mt-16 grid gap-px overflow-hidden rounded-[1.9rem] border border-white/10 bg-white/[0.06] md:grid-cols-2 lg:grid-cols-3">
-                {featuredCapabilities.map((capability, i) => {
-                  const Icon = capability.icon;
-                  const moduleId = String(i + 1).padStart(2, "0");
-                  return (
-                    <motion.div
-                      key={capability.title}
-                      initial={{ opacity: 0, y: 28 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true, margin: "-70px" }}
-                      transition={{ duration: 0.55, ease: EASE, delay: (i % 3) * 0.08 }}
-                      className="group relative isolate overflow-hidden bg-[#080d18] p-7 transition-colors duration-500 hover:bg-[#0b1322] lg:p-9"
-                    >
-                      {/* giant index watermark */}
-                      <span
-                        aria-hidden
-                        className="pointer-events-none absolute -right-2 -top-6 select-none font-mono text-[3.5rem] font-bold leading-none text-white/[0.03] transition-all duration-500 group-hover:text-cyan-300/[0.07] sm:text-[7rem]"
-                      >
-                        {moduleId}
-                      </span>
+        {/* ──── Delivery pipeline: scroll-scrubbed progress line ──── */}
+        <DeliveryPipeline />
 
-                      {/* scanning light sweep on hover */}
-                      <span
-                        aria-hidden
-                        className="pointer-events-none absolute inset-y-0 -left-1/2 w-1/2 -skew-x-12 bg-gradient-to-r from-transparent via-cyan-300/[0.07] to-transparent opacity-0 transition-all duration-700 ease-out group-hover:left-[120%] group-hover:opacity-100"
-                      />
-
-                      {/* animated corner bracket */}
-                      <span aria-hidden className="pointer-events-none absolute left-5 top-5 h-4 w-4 rounded-tl-[3px] border-l border-t border-cyan-300/0 transition-all duration-500 group-hover:border-cyan-300/50 lg:left-6 lg:top-6" />
-                      <span aria-hidden className="pointer-events-none absolute bottom-5 right-5 h-4 w-4 rounded-br-[3px] border-b border-r border-cyan-300/0 transition-all duration-500 group-hover:border-cyan-300/50 lg:bottom-6 lg:right-6" />
-
-                      <div className="relative z-[2] flex h-full flex-col">
-                        {/* spec-sheet header */}
-                        <div className="flex items-center justify-between">
-                          <span className="font-mono text-[11px] tracking-[0.2em] text-white/35">
-                            MOD_{capability.code} · {moduleId}/06
-                          </span>
-                          <span className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.16em] text-emerald-300/80">
-                            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]" />
-                            active
-                          </span>
-                        </div>
-
-                        {/* icon with aura + connector line */}
-                        <div className="mt-7 flex items-center gap-4">
-                          <div className="relative">
-                            <span className="absolute inset-0 rounded-2xl bg-cyan-400/30 opacity-0 blur-xl transition-opacity duration-500 group-hover:opacity-100" />
-                            <div className="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-500 shadow-[0_18px_32px_rgba(15,23,42,0.4)] ring-1 ring-white/15 transition-transform duration-500 group-hover:-translate-y-0.5">
-                              <Icon className="text-white" size={26} />
-                            </div>
-                          </div>
-                          <span aria-hidden className="h-px flex-1 bg-gradient-to-r from-white/20 to-transparent transition-all duration-500 group-hover:from-cyan-300/50" />
-                        </div>
-
-                        <h3 className="mt-6 text-[1.4rem] font-semibold leading-tight text-white/95">
-                          {capability.title}
-                        </h3>
-                        <p className="mt-3 text-[0.96rem] leading-relaxed text-white/58">
-                          {capability.description}
-                        </p>
-
-                        {/* spec footer */}
-                        <div className="mt-7 flex items-center justify-between gap-3 border-t border-white/8 pt-5">
-                          <div className="flex flex-wrap gap-x-3 gap-y-1 font-mono text-[10px] uppercase tracking-[0.1em] text-white/40">
-                            {capability.specs.map((spec, si) => (
-                              <span key={spec} className="inline-flex items-center gap-3">
-                                {si > 0 ? <span className="text-white/20">/</span> : null}
-                                <span className="transition-colors duration-300 group-hover:text-white/65">{spec}</span>
-                              </span>
-                            ))}
-                          </div>
-                          <ArrowUpRight
-                            size={18}
-                            className="flex-shrink-0 text-white/30 transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-cyan-300"
-                          />
-                        </div>
-                      </div>
-                    </motion.div>
-                  );
-                })}
-              </div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 18 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.7, ease: EASE }}
-                className="mt-12 flex flex-wrap items-center justify-center gap-3"
-              >
-                <span className="text-[11px] uppercase tracking-[0.18em] text-white/40">Also</span>
-                {alsoDelivers.map((item) => (
-                  <span
-                    key={item}
-                    className="rounded-full border border-white/10 bg-white/[0.035] px-4 py-2 text-sm text-white/68"
-                  >
-                    {item}
-                  </span>
-                ))}
-              </motion.div>
-            </div>
-          </div>
-        </SectionContainer>
-
-        {/* ─────────────── Proof (sticky pinned statement) ─────────────── */}
-        <section className="relative">
-          <div className="mx-auto grid max-w-[1320px] gap-12 px-5 py-20 sm:px-8 md:py-28 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20 lg:px-16">
-            <div className="lg:sticky lg:top-32 lg:h-fit">
-              <motion.div
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.7, ease: EASE }}
-              >
-                <span className="cinematic-kicker">Operational Systems</span>
-                <p className="mt-9 text-[clamp(1.6rem,3.4vw,2.7rem)] font-semibold leading-[1.1] tracking-[-0.02em] text-white">
-                  From scattered tools to a single, cleaner operating system.
-                </p>
-                <p className="mt-6 max-w-md text-base leading-relaxed text-white/60">
-                  A structured delivery approach that gives teams calm, control, and room to scale.
-                </p>
-              </motion.div>
-            </div>
-
-            <div className="grid gap-5 sm:grid-cols-2">
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{ duration: 0.6, ease: EASE }}
-                className="cinematic-panel rounded-[1.75rem] p-8 sm:col-span-2"
-              >
-                <div className="flex items-end gap-2">
-                  <Counter
-                    to={60}
-                    suffix="%"
-                    className="bg-gradient-to-br from-white to-cyan-200 bg-clip-text text-[clamp(3rem,7vw,5rem)] font-bold leading-none tracking-tight text-transparent"
-                  />
-                </div>
-                <p className="mt-4 text-lg text-white/72">less manual work across day-to-day operations</p>
-              </motion.div>
-
-              {outcomes.map((outcome, i) => (
-                <motion.div
-                  key={outcome}
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-60px" }}
-                  transition={{ duration: 0.55, ease: EASE, delay: i * 0.08 }}
-                  className="cinematic-panel flex items-center gap-4 rounded-[1.5rem] p-6"
-                >
-                  <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full border border-primary/30 bg-primary/10">
-                    <span className="h-2 w-2 rounded-full bg-primary" />
-                  </span>
-                  <span className="text-base text-white/80">{outcome}</span>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
+        {/* ──── Operations migration diff (GSAP scroll-triggered) ──── */}
+        <OperationsDiff />
 
         {/* ───────────────────────── CTA ───────────────────────── */}
         <SectionContainer fullHeight={false}>

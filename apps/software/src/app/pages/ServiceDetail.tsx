@@ -848,11 +848,12 @@ export function ServiceDetail({ serviceId }: ServiceDetailProps) {
                 {service.capabilities.map((capability, i) => (
                   <motion.div
                     key={i}
+                    id={capability.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: i * 0.1 }}
-                    className={`group relative overflow-hidden rounded-[1.9rem] border border-white/10 bg-[linear-gradient(155deg,rgba(10,18,31,0.96),rgba(8,14,23,0.9)_52%,rgba(10,28,40,0.86))] p-8 shadow-[0_24px_70px_rgba(0,0,0,0.28)] transition-all duration-500 hover:-translate-y-1.5 hover:border-white/18 hover:shadow-[0_32px_90px_rgba(0,0,0,0.38)] ${
+                    className={`group relative scroll-mt-28 overflow-hidden rounded-[1.9rem] border border-white/10 bg-[linear-gradient(155deg,rgba(10,18,31,0.96),rgba(8,14,23,0.9)_52%,rgba(10,28,40,0.86))] p-8 shadow-[0_24px_70px_rgba(0,0,0,0.28)] transition-all duration-500 hover:-translate-y-1.5 hover:border-white/18 hover:shadow-[0_32px_90px_rgba(0,0,0,0.38)] ${
                       isSoftwareService ? "overflow-hidden pb-16" : ""
                     }`}
                   >
