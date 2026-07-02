@@ -88,6 +88,7 @@ interface DivisionCapability {
   title: string;
   description: string;
   division: string;
+  href: string;
   accent: string;
 }
 
@@ -97,6 +98,7 @@ const divisionCapabilities: DivisionCapability[] = [
     title: "Secure Communication",
     description: "ZTEC Communications runs standalone encrypted, anonymous messaging infrastructure for privacy-first individuals and organizations.",
     division: "ZTEC Communications",
+    href: "https://communication.ztecgroup.au",
     accent: "from-blue-500 to-cyan-500",
   },
   {
@@ -104,6 +106,7 @@ const divisionCapabilities: DivisionCapability[] = [
     title: "Content Production",
     description: "ZTEC Content Studio is an independent video and motion graphics house delivering cinematic storytelling for any brand, on any project.",
     division: "ZTEC Content Studio",
+    href: "https://contentstudio.ztecgroup.au",
     accent: "from-amber-400 to-orange-500",
   },
   {
@@ -111,6 +114,7 @@ const divisionCapabilities: DivisionCapability[] = [
     title: "Software & Automation",
     description: "ZTEC Software Lab builds and supports enterprise software and business automation as a dedicated engineering practice.",
     division: "ZTEC Software Lab",
+    href: "https://software.ztecgroup.au",
     accent: "from-cyan-500 to-teal-500",
   },
   {
@@ -118,6 +122,7 @@ const divisionCapabilities: DivisionCapability[] = [
     title: "Hospitality Consulting",
     description: "ZTEC STRA & Hospitality Management offers standalone short-term rental strategy, pricing, and portfolio consulting.",
     division: "ZTEC STRA & Hospitality",
+    href: "https://hospitality.ztecgroup.au",
     accent: "from-emerald-400 to-lime-500",
   },
 ];
@@ -195,9 +200,12 @@ export function HomeSections() {
                     </span>
                     <h3 className="text-lg font-semibold leading-snug text-white sm:text-xl">{step.title}</h3>
                     <p className="mt-3 flex-1 text-sm leading-relaxed text-white/60">{step.description}</p>
-                    <span className="mt-5 inline-flex w-fit items-center rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-[10px] font-medium uppercase tracking-[0.12em] text-white/55">
+                    <a
+                      href={step.href}
+                      className="mt-5 inline-flex w-fit items-center rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-[10px] font-medium uppercase tracking-[0.12em] text-white/55 transition-colors hover:border-white/25 hover:text-white"
+                    >
                       {step.division}
-                    </span>
+                    </a>
                   </div>
                 </Reveal>
               ))}
