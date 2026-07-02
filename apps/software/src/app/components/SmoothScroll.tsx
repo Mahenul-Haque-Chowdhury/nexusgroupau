@@ -16,15 +16,20 @@ export function SmoothScroll() {
       return;
     }
 
+    // Touch devices keep native scrolling. Lenis syncTouch re-synthesizes
+    // touch inertia in JS and can spike into sudden fast scrolls on mobile,
+    // so smooth scrolling is desktop/wheel only.
     const isTouchDevice = window.matchMedia("(hover: none), (pointer: coarse)").matches;
+    if (isTouchDevice) {
+      return;
+    }
 
     const lenis = new Lenis({
-      duration: isTouchDevice ? 0.88 : 1.05,
+      duration: 1.05,
       smoothWheel: true,
-      syncTouch: isTouchDevice,
-      syncTouchLerp: isTouchDevice ? 0.14 : undefined,
-      touchMultiplier: isTouchDevice ? 1 : 1.06,
-      wheelMultiplier: isTouchDevice ? 1 : 0.9,
+      syncTouch: false,
+      touchMultiplier: 1.06,
+      wheelMultiplier: 0.9,
       autoRaf: false,
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
     });
