@@ -42,7 +42,13 @@ export const FX_DUR = { fast: 0.4, base: 0.8, slow: 1.2 } as const;
 export function splitWords(el: HTMLElement): HTMLElement[] {
   const text = el.textContent ?? "";
   el.textContent = "";
-  el.setAttribute("aria-label", text);
+  // aria-label is not permitted on <p>/generic elements; expose the original
+  // text through a visually hidden span instead and hide the animated copies.
+  const srText = document.createElement("span");
+  srText.textContent = text;
+  srText.style.cssText =
+    "position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;";
+  el.appendChild(srText);
   return text.split(" ").map((word) => {
     const mask = document.createElement("span");
     mask.setAttribute("aria-hidden", "true");

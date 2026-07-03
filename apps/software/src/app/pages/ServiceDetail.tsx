@@ -429,7 +429,7 @@ export function ServiceDetail({ serviceId }: ServiceDetailProps) {
 
         return (
           <span key={`${item.name}-${index}`} className="inline-flex items-center gap-4 whitespace-nowrap px-2.5 py-1.5 sm:gap-5 sm:px-3">
-            <Icon size={38} style={item.color ? { color: item.color } : undefined} className={item.className} />
+            <Icon size={38} aria-hidden="true" style={item.color ? { color: item.color } : undefined} className={item.className} />
             <span>{item.name}</span>
           </span>
         );
@@ -444,7 +444,7 @@ export function ServiceDetail({ serviceId }: ServiceDetailProps) {
 
         return (
           <span key={`${item.label}-${index}`} className="inline-flex items-center gap-4 whitespace-nowrap px-2.5 py-1.5 sm:gap-5 sm:px-3">
-            <Icon size={38} style={item.color ? { color: item.color } : undefined} className={item.className} />
+            <Icon size={38} aria-hidden="true" style={item.color ? { color: item.color } : undefined} className={item.className} />
             <span>{item.label}</span>
           </span>
         );
@@ -459,7 +459,7 @@ export function ServiceDetail({ serviceId }: ServiceDetailProps) {
 
         return (
           <span key={`${item.label}-logo-${index}`} className="inline-flex items-center justify-center whitespace-nowrap px-2.5 py-1.5 sm:px-3">
-            <Icon size={38} style={item.color ? { color: item.color } : undefined} className={item.className} />
+            <Icon size={38} aria-label={item.label} style={item.color ? { color: item.color } : undefined} className={item.className} />
           </span>
         );
       })}
@@ -866,7 +866,7 @@ export function ServiceDetail({ serviceId }: ServiceDetailProps) {
                         const CapabilityIcon = capabilityIcons[i % capabilityIcons.length] ?? service.icon;
                         return (
                           <div className={`flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${service.gradient} shadow-[0_18px_32px_rgba(15,23,42,0.34)] ring-1 ring-white/10`}>
-                            <CapabilityIcon className="text-white" size={26} />
+                            <CapabilityIcon className="text-white" size={26} aria-hidden="true" />
                           </div>
                         );
                       })()}

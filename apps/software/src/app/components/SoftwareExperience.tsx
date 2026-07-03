@@ -113,7 +113,12 @@ export function SoftwareExperience() {
             key={`${item.label}-logo-${index}`}
             className="inline-flex items-center justify-center whitespace-nowrap px-2.5 py-1.5 sm:px-3"
           >
-            <Icon size={38} style={item.color ? { color: item.color } : undefined} className={item.className} />
+            <Icon
+              size={38}
+              aria-label={item.label}
+              style={item.color ? { color: item.color } : undefined}
+              className={item.className}
+            />
           </span>
         );
       })}
@@ -129,7 +134,12 @@ export function SoftwareExperience() {
             key={`${item.name}-${index}`}
             className="inline-flex items-center gap-4 whitespace-nowrap px-2.5 py-1.5 sm:gap-5 sm:px-3"
           >
-            <Icon size={38} style={item.color ? { color: item.color } : undefined} className={item.className} />
+            <Icon
+              size={38}
+              aria-hidden="true"
+              style={item.color ? { color: item.color } : undefined}
+              className={item.className}
+            />
             <span>{item.name}</span>
           </span>
         );
