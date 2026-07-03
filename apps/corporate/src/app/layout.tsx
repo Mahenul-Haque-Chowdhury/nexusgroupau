@@ -6,7 +6,6 @@ import { Footer } from "./components/Footer";
 import { ScrollToTop } from "./components/ScrollToTop";
 import { ScrollToTopOnMount } from "./components/ScrollToTopOnMount";
 import { CinematicAmbient } from "./components/CinematicAmbient";
-import { Preloader } from "./components/Preloader";
 import { SmoothScroll } from "./components/SmoothScroll";
 
 export const viewport: Viewport = {
@@ -43,7 +42,6 @@ export default function RootLayout({
       <body suppressHydrationWarning>
         <div className="min-h-screen bg-background text-foreground overflow-x-hidden flex flex-col">
           <SmoothScroll />
-          <Preloader />
           <CinematicAmbient />
           <ScrollToTopOnMount />
           <ScrollToTop />
